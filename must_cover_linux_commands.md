@@ -365,6 +365,11 @@ drwx------@ 569 keisuke  staff      18208  1 18 18:54 .
 -rw-r--r--@   1 keisuke  staff      26651  1 12 11:43 learning-card.pdf
 -rw-r--r--@   1 keisuke  staff     236506  1 12 11:25 forms-03-finished.zip
 ```
+## ログを見たいとき
+```bash
+tail -f log/development.log
+```
+ログを見たいときはこのコマンドですね。Railsを書いているときは、だいたいこのコマンドを叩いて、ログ確認用にターミナルを1パネル分割り当ててます。
 
 ## .zshrc（もしくは.bashrc）に文字列を挿入したい
 環境構築するときによく見るコマンドですね。''の中身をechoで出力し、その出力結果を~/.zshrcに挿入する、というコマンドです。

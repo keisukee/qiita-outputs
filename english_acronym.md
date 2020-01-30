@@ -41,7 +41,7 @@ LGBT – lesbian gay bisexual transgender
 OMG! – Oh my god! This very old expression of surprise or disgust has become one of the better known online abbreviations.
 TBA – to be announced
 P.S. – post scriptum. A
-
+IMAO stands for "in my arrogant opinion,"
 
 # 参考文献
 https://sproutsocial.com/insights/social-media-acronyms/
