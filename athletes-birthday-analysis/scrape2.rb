@@ -38,10 +38,12 @@ def get_birthday(url)
   puts intro.match(/[0-9]{4}年[0-9]{1,2}月[0-9]{1,2}日/) # YYYY年MM月DD日
 end
 
-player_data = read_file("data_baseball_player.txt")
+
+data_file_name = ARGV[0] || "data_baseball_player.txt"
+player_data = read_file(data_file_name)
 
 player_data.each do |player|
-  sleep rand(0.5..1.5)
+  sleep rand(1.0..4.0)
   puts player[0]
   get_birthday(player[1])
 end
