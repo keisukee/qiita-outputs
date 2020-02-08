@@ -1,6 +1,6 @@
 require 'open-uri'
-# require 'mechanize'
 require 'nokogiri'
+require "logger"
 
 def read_file(file_name)
   original_data = []
@@ -23,29 +23,38 @@ def read_file(file_name)
   original_data
 end
 
-def get_birthday(url)
-  charset = nil
-  html = open(url) do |f|
-    charset = f.charset
-    f.read
+def get_birthday(url, name, logger)
+  begin
+    charset = nil
+    html = open(url) do |f|
+      charset = f.charset
+      f.read
+    end
+  
+    doc = Nokogiri::HTML.parse(html, nil, charset)
+    count = 0
+  
+    ptags = doc.css('p')
+    intro = ptags.inner_text
+    puts intro.match(/[0-9]{4}年[0-9]{1,2}月[0-9]{1,2}日/) # YYYY年MM月DD日
+  rescue => e
+    logger.info(e)
+    logger.info("Failed to scrape #{name}")
   end
-
-  doc = Nokogiri::HTML.parse(html, nil, charset)
-  count = 0
-
-  ptags = doc.css('p')
-  intro = ptags.inner_text
-  puts intro.match(/[0-9]{4}年[0-9]{1,2}月[0-9]{1,2}日/) # YYYY年MM月DD日
 end
 
 
 data_file_name = ARGV[0] || "data_baseball_player.txt"
 player_data = read_file(data_file_name)
 
+current_time = Time.now.getlocal.to_s
+logger = Logger.new("log/#{current_time}.log")
+
 player_data.each do |player|
   sleep rand(1.0..4.0)
   puts player[0]
-  get_birthday(player[1])
+  get_birthday(player[1], player_data[0], logger)
+  logger.info("Get: #{player[0]}")
 end
 
 # url = 'https://ja.wikipedia.org/wiki/%E6%84%9B%E7%94%B2%E5%85%89'
