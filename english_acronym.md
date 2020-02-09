@@ -42,7 +42,7 @@ OMG! – Oh my god! This very old expression of surprise or disgust has become o
 TBA – to be announced
 P.S. – post scriptum. A
 IMAO stands for "in my arrogant opinion,"
-
+FWIW
 # 参考文献
 https://sproutsocial.com/insights/social-media-acronyms/
 https://eltlearningjourneys.com/2015/09/23/50-of-the-most-useful-english-abbreviations-and-acronyms/
