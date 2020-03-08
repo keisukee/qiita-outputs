@@ -52,7 +52,8 @@ TBD＝To Be Determined
 
 TBC＝To Be Confirmed
 「確認中」。「決まっている」が「最終確認をしているところ」なもの。
-
+ETA
+Estimated time of arrival.
 >>>>>>> 8bcca885fd091d8c465e148b74992f551a88eebe
 https://sproutsocial.com/insights/social-media-acronyms/
 https://eltlearningjourneys.com/2015/09/23/50-of-the-most-useful-english-abbreviations-and-acronyms/
