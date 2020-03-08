@@ -1,5 +1,13 @@
 title: Slackのチャンネル一覧と、そこに所属しているユーザー一覧をCSV出力する
 
+
+## はじめに
+インターン先であるとき、Slackのチャンネル一覧と所属しているメンバー一覧のデータがほしい、となり、ちゃちゃっとプログラムでぱぱっとデータを取得するために色々試行錯誤したので、その結果をまとめます。
+Slack APIは、legacy tokenとoauth2.0によるtokenの2種類の方式があるのですが、legacy tokenのほうが2020年5月に廃止になってしまうということで、本記事は新しいoauth2.0による方式で実行しました。
+
+tokenを発行するために、若干つまずいたので、そこらへんも丁寧に解説します！
+
+
 - [はじめに](#%e3%81%af%e3%81%98%e3%82%81%e3%81%ab)
 - [本記事でやらないこと](#%e6%9c%ac%e8%a8%98%e4%ba%8b%e3%81%a7%e3%82%84%e3%82%89%e3%81%aa%e3%81%84%e3%81%93%e3%81%a8)
 - [Slack連携のやり方](#slack%e9%80%a3%e6%90%ba%e3%81%ae%e3%82%84%e3%82%8a%e6%96%b9)
@@ -7,12 +15,6 @@ title: Slackのチャンネル一覧と、そこに所属しているユーザ�
 - [今回使用するAPIの説明](#%e4%bb%8a%e5%9b%9e%e4%bd%bf%e7%94%a8%e3%81%99%e3%82%8bapi%e3%81%ae%e8%aa%ac%e6%98%8e)
 - [最後に](#%e6%9c%80%e5%be%8c%e3%81%ab)
 
-
-## はじめに
-インターン先であるとき、Slackのチャンネル一覧と所属しているメンバー一覧のデータがほしい、となり、ちゃちゃっとプログラムでぱぱっとデータを取得するために色々試行錯誤したので、その結果をまとめます。
-Slack APIは、legacy tokenとoauth2.0によるtokenの2種類の方式があるのですが、legacy tokenのほうが2020年5月に廃止になってしまうということで、本記事は新しいoauth2.0による方式で実行しました。
-
-tokenを発行するために、若干つまずいたので、そこらへんも丁寧に解説します！
 
 ## 本記事でやらないこと
 - bot作成
@@ -27,14 +29,16 @@ tokenを発行するために、若干つまずいたので、そこらへんも
 
 https://api.slack.com/apps
 
-画像1
-<img width="720" alt="img1.png" src="img1.png">
+
+<img width="1439" alt="スクリーンショット 2020-03-08 18.50.48.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/311529/e7bc1c4c-15a0-63c6-2b0d-655cdbf4042a.png">
+
+
 
 
 アプリの名前とワークスペースを選択して次に行きます。
 
-画像2
-<img width="720" alt="img2.png" src="img2.png">
+<img width="1434" alt="スクリーンショット 2020-03-08 18.54.04.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/311529/a9542e92-a80c-4ceb-0023-3a49402b2e4a.png">
+
 
 次、↑の画像のように、「Oauth & Permissions」というところに行き、「Scope」の設定をします。
 SlackのAPIでは、作成したアプリごとにscopeをわけて、権限を管理します。
@@ -46,24 +50,25 @@ SlackのAPIでは、作成したアプリごとにscopeをわけて、権限を�
 ができればいいので、設定する必要があるscopeは2つ、`users:read`と`channels:read`です。
 
 
-<img width="720" alt="img4.png" src="img4.png">
+<img width="1435" alt="スクリーンショット 2020-03-08 18.57.07.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/311529/ac28a5e3-31c3-67f2-1ac7-c6c72d158a03.png">
 
 
 ↑のように設定したら、スクリプトを実行するのに必要な権限が設定できました。次にトークンを発行します！
 
 Settingsの「Install App」にいき、アプリをインストールします。これを実行しないとトークンが発行できないです。
 
-画像5
-<img width="720" alt="img5.png" src="img5.png">
+
+<img width="1426" alt="スクリーンショット 2020-03-08 18.58.06.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/311529/73dbfbd2-a34c-11bd-9628-6fcbf6eecb3f.png">
+
 
 「Install App to Workspace」をクリックします。
 
+<img width="1439" alt="スクリーンショット 2020-03-08 18.58.37.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/311529/686b91f1-3081-ee13-625a-dc99e206d4db.png">
 
-<img width="720" alt="img6.png" src="img6.png">
 
 こんな感じで`Oauth Access Token`が発行できました。これを使うと、SlackのAPIが実行できます！
 
-<img width="720" alt="img7.png" src="img7.png">
+<img width="1432" alt="スクリーンショット 2020-03-08 18.58.25.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/311529/b453eb8d-f3bc-e771-2ace-7ccadb1fb0c0.png">
 
 ## スクリプト
 と、その前に発行されたトークンが正しく機能しているか実験してみましょう。
